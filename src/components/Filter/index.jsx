@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Button from "../Button";
+import "./style.css";
 
 class Filter extends Component {
   state = { text: "" };
@@ -7,6 +8,7 @@ class Filter extends Component {
     return (
       <div>
         <input
+          className="filter"
           type="text"
           value={this.state.text}
           onChange={(event) => this.setState({ text: event.target.value })}

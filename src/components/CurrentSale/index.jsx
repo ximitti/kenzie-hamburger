@@ -5,7 +5,7 @@ import "../MenuContainer/style.css";
 class CurrentSale extends Component {
   render() {
     return (
-      <div className="menu">
+      <div className="adicionados">
         {this.props.products.map((item, index) => {
           return <Product key={index} item={item} button={false} />;
         })}

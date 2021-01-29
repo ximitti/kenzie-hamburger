@@ -6,9 +6,11 @@ class Product extends Component {
   render() {
     return (
       <div className="product">
-        <h3>{this.props.item.name}</h3>
-        <p>Categoria: {this.props.item.category}</p>
-        <p>Preço: R$ {this.props.item.price}</p>
+        <div className="card">
+          <h3>{this.props.item.name}</h3>
+          <p>Categoria: {this.props.item.category}</p>
+          <p>Preço: R$ {this.props.item.price}</p>
+        </div>
         {this.props.button && (
           <Button
             text="Adicionar"

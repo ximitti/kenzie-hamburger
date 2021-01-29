@@ -5,7 +5,7 @@ class Total extends Component {
     const { saleDetails } = this.props.currentSale;
     const sum = saleDetails.reduce((acc, item) => (acc += item.price), 0);
 
-    return <div>Subtotal: R$ {sum}</div>;
+    return <div className="total">Subtotal: R$ {sum.toFixed(2)}</div>;
   }
 }
 
