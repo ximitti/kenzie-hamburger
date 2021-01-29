@@ -46,15 +46,6 @@ class App extends Component {
       : this.setState({ currentSale: { ...currentSale, saleDetails: [sale] } });
   };
 
-  updateTotal = () => {
-    const { total, saleDetails } = this.state.currentSale;
-    const sum = saleDetails.reduce((acc, item) => (acc += item.price), 0);
-
-    this.setState({
-      currentSale: { ...this.state.currentSale, total: total + sum },
-    });
-  };
-
   render() {
     const { products, filteredProducts } = this.state;
     return (
