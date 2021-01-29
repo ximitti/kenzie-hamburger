@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import "./App.css";
+import MenuContainer from "./components/MenuContainer";
+import CurrentSale from "./components/CurrentSale";
+import Filter from "./components/Filter";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    products: [
+      { id: 1, name: "Hamburguer", category: "Sanduíches", price: 7.99 },
+      { id: 2, name: "X-Burguer", category: "Sanduíches", price: 8.99 },
+      { id: 3, name: "X-Salada", category: "Sanduíches", price: 10.99 },
+      { id: 4, name: "Big Kenzie", category: "Sanduíches", price: 16.99 },
+      { id: 5, name: "Guaraná", category: "Bebidas", price: 4.99 },
+      { id: 6, name: "Coca", category: "Bebidas", price: 4.99 },
+      { id: 7, name: "Fanta", category: "Bebidas", price: 4.99 },
+    ],
+    filteredProducts: [],
+    currentSale: { total: 0, saleDetails: [] },
+  };
+
+  showProducts = (text) => {
+    const { products } = this.state;
+    const filter = products.filter((item) => {
+      return (
+        item.name.toLowerCase() === text.toLowerCase() ||
+        item.category.toLowerCase() === text.toLowerCase()
+      );
+    });
+    this.setState({ filteredProducts: filter });
+  };
+
+  render() {
+    const { products, filteredProducts } = this.state;
+    return (
+      <div className="App">
+        <Filter func={this.showProducts} />
+        <MenuContainer
+          products={filteredProducts[0] ? filteredProducts : products}
+        />
+        <div>Subtotal: R$</div>
+        <CurrentSale products={this.state.currentSale.saleDetails} />
+      </div>
+    );
+  }
 }
 
 export default App;
