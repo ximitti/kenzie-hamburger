@@ -3,6 +3,7 @@ import "./App.css";
 import MenuContainer from "./components/MenuContainer";
 import CurrentSale from "./components/CurrentSale";
 import Filter from "./components/Filter";
+import Total from "./components/Total";
 
 class App extends Component {
   state = {
@@ -32,23 +33,26 @@ class App extends Component {
 
   handleClick = (productId) => {
     const { products, currentSale } = this.state;
-    const { saleDetails, total } = currentSale;
+    const { saleDetails } = currentSale;
 
     const sale = products.find((item) => {
       return item.id === productId;
     });
-
-    sale["price"]
-      ? this.setState({
-          currentSale: { ...currentSale, total: total + sale.price },
-        })
-      : this.setState({ currentSale: { ...currentSale, total: total } });
 
     saleDetails[0]
       ? this.setState({
           currentSale: { ...currentSale, saleDetails: [...saleDetails, sale] },
         })
       : this.setState({ currentSale: { ...currentSale, saleDetails: [sale] } });
+  };
+
+  updateTotal = () => {
+    const { total, saleDetails } = this.state.currentSale;
+    const sum = saleDetails.reduce((acc, item) => (acc += item.price), 0);
+
+    this.setState({
+      currentSale: { ...this.state.currentSale, total: total + sum },
+    });
   };
 
   render() {
@@ -60,7 +64,8 @@ class App extends Component {
           products={filteredProducts[0] ? filteredProducts : products}
           func={this.handleClick}
         />
-        <div>Subtotal: R$ {this.state.currentSale.total}</div>
+        <Total currentSale={this.state.currentSale} />
+        <h2>Produtos adicionados</h2>
         <CurrentSale products={this.state.currentSale.saleDetails} />
       </div>
     );
