@@ -30,6 +30,27 @@ class App extends Component {
     this.setState({ filteredProducts: filter });
   };
 
+  handleClick = (productId) => {
+    const { products, currentSale } = this.state;
+    const { saleDetails, total } = currentSale;
+
+    const sale = products.find((item) => {
+      return item.id === productId;
+    });
+
+    sale["price"]
+      ? this.setState({
+          currentSale: { ...currentSale, total: total + sale.price },
+        })
+      : this.setState({ currentSale: { ...currentSale, total: total } });
+
+    saleDetails[0]
+      ? this.setState({
+          currentSale: { ...currentSale, saleDetails: [...saleDetails, sale] },
+        })
+      : this.setState({ currentSale: { ...currentSale, saleDetails: [sale] } });
+  };
+
   render() {
     const { products, filteredProducts } = this.state;
     return (
@@ -37,8 +58,9 @@ class App extends Component {
         <Filter func={this.showProducts} />
         <MenuContainer
           products={filteredProducts[0] ? filteredProducts : products}
+          func={this.handleClick}
         />
-        <div>Subtotal: R$</div>
+        <div>Subtotal: R$ {this.state.currentSale.total}</div>
         <CurrentSale products={this.state.currentSale.saleDetails} />
       </div>
     );
