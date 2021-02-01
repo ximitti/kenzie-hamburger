@@ -1,11 +1,11 @@
 import { Component } from "react";
+import "./style.css";
 
 class Total extends Component {
   render() {
-    const { saleDetails } = this.props.currentSale;
-    const sum = saleDetails.reduce((acc, item) => (acc += item.price), 0);
+    const { total } = this.props;
 
-    return <div className="total">Subtotal: R$ {sum.toFixed(2)}</div>;
+    return <div className="total">Subtotal: R$ {total}</div>;
   }
 }
 

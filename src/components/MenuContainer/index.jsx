@@ -10,9 +10,11 @@ class MenuContainer extends Component {
           return (
             <Product
               key={index}
+              id={index}
               item={item}
               func={this.props.func}
               button={true}
+              text={"Adicionar"}
             />
           );
         })}
