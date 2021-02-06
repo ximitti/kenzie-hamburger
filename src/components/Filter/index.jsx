@@ -1,21 +1,15 @@
 import { Component } from "react";
-import Button from "../Button";
 import "./style.css";
 
 class Filter extends Component {
-  state = { text: "" };
   render() {
     return (
       <div>
         <input
           className="filter"
+          placeholder="Pesquisar"
           type="text"
-          value={this.state.text}
-          onChange={(event) => this.setState({ text: event.target.value })}
-        />
-        <Button
-          text="Pesquisar"
-          func={() => this.props.func(this.state.text)}
+          onChange={(event) => this.props.func(event.target.value)}
         />
       </div>
     );

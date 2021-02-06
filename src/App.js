@@ -23,9 +23,12 @@ class App extends Component {
 
   showProducts = (text) => {
     const { products } = this.state;
-    const re = new RegExp([text.toLowerCase()]);
+    const re = new RegExp([text.toLowerCase("en_US")]);
     const filter = products.filter(({ name, category }) => {
-      return re.test(name.toLowerCase()) || re.test(category.toLowerCase());
+      return (
+        re.test(name.toLowerCase("en_US")) ||
+        re.test(category.toLowerCase("en_US"))
+      );
     });
     this.setState({ filteredProducts: filter });
   };
